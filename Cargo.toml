@@ -13,12 +13,10 @@ default = ["console_error_panic_hook", "wee_alloc"]
 [dependencies]
 wasm-bindgen = "0.2.78"
 rand = "0.8.4"
+getrandom = { version = "0.2.3", features = ["js"] }
 either = "1.6.1"
 console_error_panic_hook = { version = "0.1.6", optional = true }
 wee_alloc = { version = "0.4.5", optional = true }
-
-[dev-dependencies]
-wasm-bindgen-test = "0.3.0"
 
 [profile.release]
 opt-level = "s"

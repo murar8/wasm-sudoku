@@ -6,6 +6,7 @@ use std::{
 use either::Either;
 use rand::{thread_rng, Rng};
 use wasm_bindgen::prelude::*;
+use Either::{Left, Right};
 
 pub const GRID_SIZE: usize = 9;
 pub const BLOCK_SIZE: usize = 3;
@@ -65,9 +66,9 @@ impl Sudoku {
         let candidates = candidates.difference(&intersections);
 
         let candidates = if random_order {
-            Either::Left(candidates.collect::<HashSet<_>>().into_iter())
+            Left(candidates.collect::<HashSet<_>>().into_iter())
         } else {
-            Either::Right(candidates.collect::<BTreeSet<_>>().into_iter())
+            Right(candidates.collect::<BTreeSet<_>>().into_iter())
         };
 
         for &c in candidates {
