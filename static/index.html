@@ -19,12 +19,27 @@
     </head>
 
     <body>
-        <header class="header">
-            <h1>Wasm Sudoku</h1>
+        <header id="header">
+            <h1 id="header-title">Wasm Sudoku</h1>
+            <a href="https://github.com/murar8/hn-client/wasm-sudoku">
+                <button class="button header-button"></button>
+            </a>
         </header>
-        <main class="main"></main>
-        <footer class="footer">
+        <main id="main">
+            <div id="sudoku-grid">
+                <noscript>
+                    <h3>JavaScript must be enabled to run this app!</h3>
+                </noscript>
+            </div>
+            <div class="button-container">
+                <button id="generate-button" class="button button-lg hidden">Generate Other</button>
+                <button id="solve-button" class="button button-lg hidden">Solve</button>
+                <button id="reset-button" class="button button-lg hidden">Reset</button>
+            </div>
+        </main>
+        <footer id="footer">
             <p>© 2021 Lorenzo Murarotto. All Rights Reserved.</p>
+            <a href="mailto:lnzmrr@gmail.com"> <button class="button footer-button">Contact Me</button></a>
         </footer>
     </body>
 </html>

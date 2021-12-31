@@ -31,12 +31,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "either"
-version = "1.6.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e78d4f1cc4ae33bbfc157ed5d5a5ef3bc29227303d595861deb238fcec4e9457"
-
-[[package]]
 name = "getrandom"
 version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -231,7 +225,6 @@ name = "wasm-sudoku"
 version = "1.0.0"
 dependencies = [
  "console_error_panic_hook",
- "either",
  "getrandom",
  "rand",
  "wasm-bindgen",
