@@ -1,6 +1,10 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css";
 @import "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap";
 
+:root {
+    --grid-span: 0;
+}
+
 body {
     font-family: "Open Sans", sans-serif;
     background-color: #121212;
@@ -131,7 +135,9 @@ body {
 
 #sudoku-grid {
     display: grid;
-    border-radius: 8px;
+    grid-template-columns: repeat(var(--grid-span), 1fr);
+    grid-template-rows: repeat(var(--grid-span), 1fr);
+    border: 1px solid #65499c;
 }
 
 .sudoku-item {

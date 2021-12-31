@@ -2,7 +2,7 @@ import { PlayResult, SolveResult, Sudoku } from "../pkg/index";
 import { memory } from "../pkg/index_bg.wasm";
 
 const MAX_SEED = 2 ** 32 - 1;
-const CLUE_QTY = 24;
+const CLUE_QTY = 25;
 
 const timeouts = [];
 
@@ -48,7 +48,7 @@ function onItemKeydown(event) {
     } else if (sudoku.play(event.target.index, value) != PlayResult.Ok) {
         addTransientClass(event.target, "sudoku-item-warn", 200);
     } else {
-        event.currentTarget.value = value !== 0 ? value : 0;
+        event.currentTarget.value = value !== 0 ? value : "";
     }
 
     if (sudoku.isSolved()) {
@@ -93,6 +93,8 @@ function onGenerate() {
  */
 function onSolve(event) {
     const result = sudoku.solve();
+
+    // TODO load
 
     if (result === SolveResult.Solved) {
         draw();
