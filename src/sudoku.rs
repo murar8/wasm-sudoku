@@ -179,9 +179,7 @@ impl Sudoku {
             rng: StdRng::seed_from_u64(seed),
         };
 
-        while sudoku.fill(0, SolveStrategy::Random) != SolveResult::Solved {
-            sudoku.reset();
-        }
+        sudoku.fill(0, SolveStrategy::Random);
 
         while sudoku.initial_cells.len() < clues {
             sudoku
