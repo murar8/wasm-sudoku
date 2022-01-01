@@ -173,8 +173,8 @@ impl Sudoku {
         }
     }
 
-    pub fn random(seed: u64) -> Self {
-        let mut rng = StdRng::seed_from_u64(seed);
+    pub fn random(seed: usize) -> Self {
+        let mut rng = StdRng::seed_from_u64(seed as u64);
         let clues = Uniform::from(MIN_CLUES..=MAX_CLUES).sample(&mut rng);
 
         let mut sudoku = Sudoku {
