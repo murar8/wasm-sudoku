@@ -4,12 +4,19 @@ use std::{
     num::NonZeroU8,
 };
 
-use rand::{prelude::SliceRandom, rngs::StdRng, Rng, SeedableRng};
+use rand::{
+    distributions::Uniform,
+    prelude::{Distribution, SliceRandom},
+    rngs::StdRng,
+    Rng, SeedableRng,
+};
 use wasm_bindgen::prelude::*;
 
 const STD_GRID_SPAN: usize = 9;
 const STD_BLOCK_SPAN: usize = 3;
 const STD_GRID_AREA: usize = STD_GRID_SPAN * STD_GRID_SPAN;
+const MIN_CLUES: usize = 17;
+const MAX_CLUES: usize = 40;
 
 #[wasm_bindgen]
 #[derive(Clone, Copy, PartialEq, Debug)]
@@ -166,27 +173,25 @@ impl Sudoku {
         }
     }
 
-    pub fn random(seed: u64, clues: usize) -> Self {
-        if clues > STD_GRID_AREA {
-            panic!("Number of clues is higher than the grid size.")
-        }
+    pub fn random(seed: u64) -> Self {
+        let mut rng = StdRng::seed_from_u64(seed);
+        let clues = Uniform::from(MIN_CLUES..=MAX_CLUES).sample(&mut rng);
 
         let mut sudoku = Sudoku {
             grid_span: STD_GRID_SPAN,
             block_span: STD_BLOCK_SPAN,
             grid: vec![None; STD_GRID_AREA],
             initial_cells: HashSet::with_capacity(clues),
-            rng: StdRng::seed_from_u64(seed),
+            rng,
         };
-
-        sudoku.fill(0, SolveStrategy::Random);
 
         while sudoku.initial_cells.len() < clues {
             sudoku
                 .initial_cells
-                .insert((sudoku.rng.gen::<f32>() * (sudoku.grid_span as f32).powi(2)) as usize);
+                .insert((sudoku.rng.gen::<f32>() * (STD_GRID_SPAN as f32).powi(2)) as usize);
         }
 
+        sudoku.fill(0, SolveStrategy::Random);
         sudoku.reset();
 
         sudoku
@@ -406,20 +411,12 @@ mod tests {
 
     #[test]
     fn test_random() {
-        let mut sudoku0 = Sudoku::random(42, 10);
-        let sudoku1 = Sudoku::random(42, 10);
-        let sudoku2 = Sudoku::random(100, 10);
+        let sudoku0 = Sudoku::random(42);
+        let sudoku1 = Sudoku::random(42);
+        let sudoku2 = Sudoku::random(100);
 
         assert_eq!(sudoku0.grid, sudoku1.grid);
         assert_ne!(sudoku0.grid, sudoku2.grid);
-        assert_eq!(sudoku0.solve(), SolveResult::Solved);
-        assert_eq!(sudoku0.initial_cells.len(), 10);
-    }
-
-    #[test]
-    #[should_panic]
-    fn test_random_clues() {
-        Sudoku::random(42, 100);
     }
 
     #[test]

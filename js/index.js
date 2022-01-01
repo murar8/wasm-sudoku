@@ -2,7 +2,6 @@ import { PlayResult, SolveResult, Sudoku } from "../pkg/index";
 import { memory } from "../pkg/index_bg.wasm";
 
 const MAX_SEED = 2 ** 32 - 1;
-const CLUE_QTY = 27;
 
 /**
  * @param {HTMLElement} target
@@ -39,7 +38,7 @@ function generateSeed() {
 if (!params.has("seed")) generateSeed();
 
 const seed = params.get("seed");
-const sudoku = Sudoku.random(seed, CLUE_QTY);
+const sudoku = Sudoku.random(seed);
 const gridBuffer = new Uint8Array(memory.buffer, sudoku.getGrid(), sudoku.grid_span ** 2);
 
 /**
