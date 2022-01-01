@@ -31,6 +31,14 @@ body {
     padding: 8px;
 }
 
+.button:hover {
+    outline: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.button:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+}
+
 .button-lg {
     font-size: 1.25em;
     padding: 12px;
@@ -76,14 +84,6 @@ body {
     }
 }
 
-.button:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
-.button:focus {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
 .button-container {
     display: flex;
     gap: 16px;
@@ -105,10 +105,16 @@ body {
 
 #header-title {
     margin: 0;
-    padding-inline-start: 8px;
+    padding-inline-start: 72px;
     flex-grow: 1;
     text-align: center;
     white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    #header-title {
+        padding-inline-start: 8px;
+    }
 }
 
 .header-button {

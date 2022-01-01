@@ -2,9 +2,7 @@ import { PlayResult, SolveResult, Sudoku } from "../pkg/index";
 import { memory } from "../pkg/index_bg.wasm";
 
 const MAX_SEED = 2 ** 32 - 1;
-const CLUE_QTY = 25;
-
-const timeouts = [];
+const CLUE_QTY = 27;
 
 /**
  * @param {HTMLElement} target
@@ -12,11 +10,22 @@ const timeouts = [];
  * @param {number} duration
  */
 function addTransientClass(target, name, duration) {
-    const key = target.id + name;
-    if (timeouts[key]) clearTimeout(timeouts[key]);
+    if (!target.timeouts) target.timeouts = {};
+
+    if (target.timeouts[name]) {
+        clearTimeout(target.timeouts[name]);
+        delete target.timeouts[name];
+    }
+
+    const onTimeout = () => {
+        target.classList.remove(name);
+        delete target.timeouts[name];
+    };
+
+    const timeout = setTimeout(onTimeout, duration);
+
+    target.timeouts[name] = timeout;
     target.classList.add(name);
-    const timeout = setTimeout(() => target.classList.remove(name), duration);
-    timeouts[key] = timeout;
 }
 
 const params = new URLSearchParams(window.location.search);
