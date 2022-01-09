@@ -1,6 +1,9 @@
 # WASM Sudoku
 
-This project is a simple sudoku game. The game logic is handled using WebAssembly with Rust and wasm-bindgen.
+This is a simple sudoku game I wrote to experiment with WebAssembly.
+All of the game logic in this project is handled using WebAssembly with Rust and wasm-bindgen.
+
+A live demo is available at https://murar8.github.io/wasm-sudoku/
 
 ## License
 
