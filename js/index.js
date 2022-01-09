@@ -41,6 +41,12 @@ const seed = params.get("seed");
 const sudoku = Sudoku.random(seed);
 const gridBuffer = new Uint8Array(memory.buffer, sudoku.getGrid(), sudoku.grid_span ** 2);
 
+function setSolved(isSolved) {
+    const grid = document.getElementById("sudoku-grid");
+    if (isSolved) grid.classList.add("sudoku-grid-solved");
+    else grid.classList.remove("sudoku-grid-solved");
+}
+
 /**
  * @param {KeyboardEvent} event
  */
@@ -60,7 +66,7 @@ function onItemKeydown(event) {
     }
 
     if (sudoku.isSolved()) {
-        // TODO Win
+        setSolved(true);
     }
 
     event.preventDefault();
@@ -102,10 +108,9 @@ function onGenerate() {
 function onSolve(event) {
     const result = sudoku.solve();
 
-    // TODO load
-
     if (result === SolveResult.Solved) {
         draw();
+        setSolved(true);
     } else {
         addTransientClass(event.currentTarget, "button-shake", 600);
     }
@@ -114,6 +119,7 @@ function onSolve(event) {
 function onReset() {
     sudoku.reset();
     draw();
+    setSolved(false);
 }
 
 const generateButton = document.getElementById("generate-button");

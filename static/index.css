@@ -146,6 +146,14 @@ body {
     border: 1px solid #65499c;
 }
 
+.sudoku-grid-solved {
+    pointer-events: none;
+}
+
+.sudoku-grid-solved > .sudoku-item:not(:read-only) {
+    color: #338a3e;
+}
+
 .sudoku-item {
     height: 2ch;
     width: 2ch;
